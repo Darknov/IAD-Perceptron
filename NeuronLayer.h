@@ -5,6 +5,7 @@ class NeuronLayer
 {
 public:
 	std::vector<Neuron> neurons;
+
 	NeuronLayer(int numberOfNeurons);
 };
 
