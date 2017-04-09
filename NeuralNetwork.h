@@ -5,8 +5,8 @@
 
 enum NetworkCreationMode
 {
-	CreateNew,
-	LoadFromFile
+	CreateNew = 0,
+	LoadFromFile = 1
 };
 
 class NeuralNetwork

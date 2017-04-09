@@ -14,11 +14,23 @@ int main(int argc)
 	int numberOfLayers;
 	int* howMuchNeuronsInEachLayer;
 
+	std::cout << "Podaj liczbe warstw: " << std::endl;
 	std::cin >> numberOfLayers;
 
 	howMuchNeuronsInEachLayer = new int[numberOfLayers];
 
-	NetworkCreationMode mode = CreateNew;
+	for (int i = 0; i < numberOfLayers; i++)
+	{
+		std::cout << "Ile ma byc neuronow w warstwie " + std::to_string(i) + ": " << std::endl;
+		std::cin >> howMuchNeuronsInEachLayer[i];
+	}
+
+	NetworkCreationMode mode;
+	int choice;
+	std::cout << "Wczytac siec z pliku, czy utworzyc nowa? [0/1]" << std::endl;
+	std::cin >> choice;
+
+	if (choice == 0) mode = LoadFromFile; else mode = CreateNew;
 
 	switch (mode)
 	{
@@ -28,7 +40,6 @@ int main(int argc)
 	case CreateNew:
 	default:
 		perceptron = new NeuralNetwork();
-
 	}
 	
 	delete [] howMuchNeuronsInEachLayer;
