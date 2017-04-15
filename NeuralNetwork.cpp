@@ -1,10 +1,5 @@
 #include "NeuralNetwork.h"
 
-NeuralNetwork::NeuralNetwork(std::vector<LayerOfNeurons> layers)
-{
-	this->layers = layers;
-}
-
 LayerOfNeurons NeuralNetwork::getLayer(int index)
 {
 	return layers[index];

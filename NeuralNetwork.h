@@ -15,8 +15,6 @@ public:
 	bool useBias;
 	LayerManager layerManager;
 	std::vector<LayerOfNeurons> layers;
-	NeuralNetwork();
-	NeuralNetwork(std::vector<LayerOfNeurons> layers);
 
 	void loadLayersFromFile();
 

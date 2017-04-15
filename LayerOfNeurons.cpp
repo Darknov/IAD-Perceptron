@@ -1,10 +1,6 @@
 #include "LayerOfNeurons.h"
 #include "Debug.h"
 
-LayerOfNeurons::LayerOfNeurons(std::vector<Neuron> neuronz)
-{
-	this->neurons = neuronz;
-}
 
 void LayerOfNeurons::addNeuron(Neuron n)
 {

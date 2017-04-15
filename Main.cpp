@@ -14,8 +14,10 @@ double linearFunction(double x);
 
 int main(int argc)
 {
-	NeuralNetwork* perceptron = new NeuralNetwork();;
+	NeuralNetwork* perceptron = new NeuralNetwork();
 	LayerOfNeurons* kageBunshinNoLayer; // warstwa powielajaca
+
+	kageBunshinNoLayer = new LayerOfNeurons();
 
 	Neuron sampleDuplicationNeuron;
 	sampleDuplicationNeuron.setActivationFunction(linearFunction);
