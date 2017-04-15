@@ -1,19 +1,7 @@
 #include "NeuralNetwork.h"
 
-LayerOfNeurons NeuralNetwork::getLayer(int index)
+
+
+NeuralNetwork::NeuralNetwork()
 {
-	return layers[index];
 }
-
-void NeuralNetwork::addLayer(LayerOfNeurons layer)
-{
-	layers.push_back(layer);
-}
-
-int NeuralNetwork::getNumberOfLayers()
-{
-	return layers.size();
-}
-
-
-

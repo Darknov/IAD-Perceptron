@@ -3,25 +3,28 @@
 #include <vector>
 #include <cmath>
 
-typedef double(*ActivationFunction)(double);
+typedef double* Fptr(double);
+
 #define variant 3
 
 class Neuron
 {
-public:
+private:
 
 	std::vector<double> X;
 	std::vector<double> W;
-	ActivationFunction activationFunction;
+	Fptr transferFunction, transferFunctionDerivative;
 	double learnSpeed;
+
+public:
 
 	Neuron();
 	Neuron(std::vector<double> W, double learnSpeed);
-	void setActivationFunction(ActivationFunction function); // just assign appropriate function here. By default It'll be sigmoidal function.
+	void setFunctions(Fptr transferFunction, Fptr derivative); // just assign appropriate functions here. By default It'll be sigmoidal function.
 	double getOutput();
 	void setInput(std::vector<double> X);
-	void updateWeights(int exp, int res, std::vector<double> X);
+	void setWeights(std::vector<double> W);
+	std::vector<double> getWeights();
+	void updateWeights(double exp, double res, std::vector<double> X); // tu jest nie ok
 
 };
-
-

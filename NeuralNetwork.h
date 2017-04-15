@@ -1,26 +1,29 @@
-#pragma once
+﻿#pragma once
 #include <vector>
-#include "LayerOfNeurons.h"
-#include "LayerManager.h"
+#include "NeuralLayer.h"
 
-enum NetworkCreationMode
-{
-	CreateNew = 0,
-	LoadFromFile = 1
-};
 
 class NeuralNetwork
 {
+private:
+	std::vector<NeuralLayer> layers;
+	std::vector<double> input;
+	std::vector<double> output;
+	double error;
+
 public:
-	bool useBias;
-	LayerManager layerManager;
-	std::vector<LayerOfNeurons> layers;
+	NeuralNetwork();
+	NeuralNetwork(std::vector<int>& howMuchNeuronsInEachLayer);
 
-	void loadLayersFromFile();
+	void setBias(bool yep);
 
-	LayerOfNeurons getLayer(int index);
-	void addLayer(LayerOfNeurons layer);
-	int getNumberOfLayers();
+	void setInput(std::vector<double>& input);
+	void propagateForward();
+
+	void backwardErrorPropagation(); // z tego można zrobić z 5 metod
+
+	std::vector<double> getOutput();
+	double getError();
 
 };
 
