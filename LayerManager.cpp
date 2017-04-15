@@ -2,16 +2,16 @@
 #include "Debug.h"
 
 
-std::vector<NeuronLayer> LayerManager::loadLayersFromFile()
+std::vector<LayerOfNeurons> LayerManager::loadLayersFromFile()
 {
 	Debug::log("LayerManager::loadLayersFromFile() not implemented");
-	std::vector<NeuronLayer> tempVector;
+	std::vector<LayerOfNeurons> tempVector;
 	return tempVector;
 }
-std::vector<NeuronLayer> LayerManager::loadRandomLayers()
+std::vector<LayerOfNeurons> LayerManager::loadRandomLayers()
 {
 	Debug::log("LayerManager::loadRandomLayers() not implemented");
-	std::vector<NeuronLayer> tempVector;
+	std::vector<LayerOfNeurons> tempVector;
 	return tempVector;
 }
 std::vector<int> LayerManager::loadPatternsFromFile()
@@ -26,7 +26,7 @@ std::vector<int> LayerManager::loadSomePatternsDunnoWhatsGoingOn()
 	std::vector<int> tempVector;
 	return tempVector;
 }
-void LayerManager::saveLayersToFile(std::vector<NeuronLayer>)
+void LayerManager::saveLayersToFile(std::vector<LayerOfNeurons>)
 {
 	Debug::log("LayerManager::saveLayersToFile(std::vector<NeuronLayer>) not implemented");
 }

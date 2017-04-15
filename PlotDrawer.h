@@ -9,7 +9,6 @@ class PlotDrawer
 public:
 
 	std::vector<Plot> plots;
-	bool isGnuplotBusy;
 
 	Gnuplot* gnuplot;
 

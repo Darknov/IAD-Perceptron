@@ -1,18 +1,24 @@
 #include "NeuralNetwork.h"
 
-NeuralNetwork::NeuralNetwork()
+NeuralNetwork::NeuralNetwork(std::vector<LayerOfNeurons> layers)
 {
-	layers = layerManager.loadLayersFromFile();
+	this->layers = layers;
 }
 
-NeuralNetwork::NeuralNetwork(int numberOfLayers, int howMuchNeuronsInEachLayer[])
+LayerOfNeurons NeuralNetwork::getLayer(int index)
 {
-
-	for (int i = 0; i < numberOfLayers; i++)
-	{
-		NeuronLayer layer(howMuchNeuronsInEachLayer[i]);
-			layers.push_back(layer);
-	}
+	return layers[index];
 }
+
+void NeuralNetwork::addLayer(LayerOfNeurons layer)
+{
+	layers.push_back(layer);
+}
+
+int NeuralNetwork::getNumberOfLayers()
+{
+	return layers.size();
+}
+
 
 

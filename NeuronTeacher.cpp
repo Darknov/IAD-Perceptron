@@ -27,8 +27,9 @@ void NeuronTeacher::teach()
 	{
 		i = random.nextIntExcludingTop(0, inputPoints.size());
 		expectedResponse = getExpectedResponse(inputPoints[i]);
-		response = neuron.getResponse(inputPoints[i].toVector());
-		neuron.updateWeights(expectedResponse, response, inputPoints[i]);
+		neuron.setInput(inputPoints[i].toVector());
+		response = neuron.getOutput();
+		neuron.updateWeights(expectedResponse, response, inputPoints[i].toVector());
 
 		if (!(k % 10))
 		{
@@ -37,7 +38,8 @@ void NeuronTeacher::teach()
 			drawer.deleteAll();
 			for (j = 0; j < inputPoints.size(); j++)
 			{
-				if (neuron.getResponse(inputPoints[j].toVector()) == 1) { downPoints.addPoint(inputPoints[j]); }
+				neuron.setInput(inputPoints[i].toVector());
+				if (neuron.getOutput() == 1) { downPoints.addPoint(inputPoints[j]); }
 				else { upPoints.addPoint(inputPoints[j]); }
 			}
 			refreshPlots();

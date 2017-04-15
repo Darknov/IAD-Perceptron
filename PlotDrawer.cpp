@@ -6,7 +6,6 @@ PlotDrawer::PlotDrawer()
 {
 	Gnuplot::set_GNUPlotPath("C:\\gnuplot\\bin");
 	gnuplot = new Gnuplot();
-	this->isGnuplotBusy = false;
 
 }
 

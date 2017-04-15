@@ -21,9 +21,6 @@
     <ClInclude Include="PlotDrawer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Neuron.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Random.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -42,10 +39,16 @@
     <ClInclude Include="NeuralNetwork.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="NeuronLayer.h">
+    <ClInclude Include="LayerManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="LayerManager.h">
+    <ClInclude Include="TheSchool.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Neuron.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LayerOfNeurons.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -54,9 +57,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PlotDrawer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Neuron.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Random.cpp">
@@ -77,10 +77,16 @@
     <ClCompile Include="NeuralNetwork.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="NeuronLayer.cpp">
+    <ClCompile Include="LayerManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LayerManager.cpp">
+    <ClCompile Include="TheSchool.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Neuron.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LayerOfNeurons.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

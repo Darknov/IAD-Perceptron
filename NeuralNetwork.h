@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include "NeuronLayer.h"
+#include "LayerOfNeurons.h"
 #include "LayerManager.h"
 
 enum NetworkCreationMode
@@ -13,19 +13,16 @@ class NeuralNetwork
 {
 public:
 	bool useBias;
-	int numberOfLayers;
 	LayerManager layerManager;
-	std::vector<NeuronLayer> layers;
-
+	std::vector<LayerOfNeurons> layers;
 	NeuralNetwork();
-	NeuralNetwork(int numberOfLayers, int howMuchNeuronsInEachLayer[]);
+	NeuralNetwork(std::vector<LayerOfNeurons> layers);
 
-	void learningMode();
-	void testingMode();
+	void loadLayersFromFile();
 
-
-
-
+	LayerOfNeurons getLayer(int index);
+	void addLayer(LayerOfNeurons layer);
+	int getNumberOfLayers();
 
 };
 
