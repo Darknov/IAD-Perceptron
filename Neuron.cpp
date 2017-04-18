@@ -53,3 +53,15 @@ std::vector<double> Neuron::getWeights()
 {
 	return W;
 }
+
+double Neuron::getOutput()
+{
+	double sum = 0;
+	
+		for (int i = 0; i < W.size(); i++)
+		{
+			sum += X[i] * W[i];
+		}
+	
+		return transferFunction(sum);
+}
