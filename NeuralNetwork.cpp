@@ -1,5 +1,20 @@
-#include "NeuralNetwork.h"
+﻿#include "NeuralNetwork.h"
 #include <exception>
+
+
+NeuralNetwork::NeuralNetwork()
+{
+	// wczytaj z pliku
+	// * ilość warstw
+	// * ilość neuronów w każdej warstwie
+	// * jakie wagi są przypisane do wyjść każdej z warstw (oprócz ostatniej)
+	//		* możemy to zapisać w pliku tekstowym (będzie łatwo edytowalne)
+	//		* możemy też zapisać do pliku bezpośrednio liczby (będzie łatwiej 
+	//		  dla programu, jeżeli nie musimy ich modyfikować przez notatnik, to super)
+
+	// Nie mogę kontynuować, bo wikampa konserwują >.>
+
+}
 
 void NeuralNetwork::setBias(bool exists)
 {
