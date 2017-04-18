@@ -12,17 +12,18 @@ private:
 	double error;
 
 public:
-	NeuralNetwork();
+	NeuralNetwork(); // wczytywanie z pliku
 	NeuralNetwork(std::vector<int>& howMuchNeuronsInEachLayer);
 
-	void setBias(bool yep);
+	void setBias(bool exists);
 
 	void setInput(std::vector<double>& input);
 	void propagateForward();
 
-	void backwardErrorPropagation(); // z tego można zrobić z 5 metod
+	void backwardErrorPropagation(); 
 
 	std::vector<double> getOutput();
+
 	double getError();
 
 };

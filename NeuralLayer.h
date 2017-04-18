@@ -17,6 +17,7 @@ public:
 	void addNeuron(Neuron& n);
 	void setBias(Neuron& bias);
 	void setBiasPermissions(bool can);
+	int getSize();
 	Neuron& getNeuron(int index);
 	Neuron& getBias();
 	void setFunctions(Fptr transferFunction, Fptr derivative);
