@@ -1,4 +1,5 @@
 ﻿#include "NeuralNetwork.h"
+#include "Neuron.h"
 #include <exception>
 
 
@@ -40,4 +41,29 @@ std::vector<double> NeuralNetwork::getOutput()
 double NeuralNetwork::getError()
 {
 	return error;
+}
+
+void NeuralNetwork::propagateForward()
+{
+	for (int i = 0; i < layers.size() - 1; i++)
+	{
+		std::vector<double> currentLayerOutputs;
+
+		NeuralLayer& currentLayer = layers[i];
+		NeuralLayer& nextLayer = layers[i+1];
+
+		for (int j=0; j<currentLayer.getSize(); j++)
+		{
+			Neuron currentNeuron = currentLayer.getNeuron(j);
+			double currentNeuronOutput = currentNeuron.getOutput();
+			currentLayerOutputs.push_back(currentNeuronOutput);
+		}
+
+		for (int k = 0; k < nextLayer.getSize(); k++)
+		{
+			Neuron currentNeuron = nextLayer.getNeuron(k);
+			currentNeuron.setInput(currentLayerOutputs);
+		}
+
+	}
 }
