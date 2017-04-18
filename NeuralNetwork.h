@@ -23,6 +23,7 @@ public:
 	void backwardErrorPropagation(); 
 
 	std::vector<double> getOutput();
+
 	double getError();
 
 };

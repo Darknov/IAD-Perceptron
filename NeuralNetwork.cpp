@@ -16,3 +16,13 @@ void NeuralNetwork::setInput(std::vector<double>& input)
 		i++;
 	}
 }
+
+std::vector<double> NeuralNetwork::getOutput()
+{
+	return this->output;
+}
+
+double NeuralNetwork::getError()
+{
+	return error;
+}
