@@ -3,7 +3,7 @@
 #include <vector>
 #include <cmath>
 
-typedef double* Fptr(double);
+typedef double (*Fptr)(double);
 
 #define variant 3
 
