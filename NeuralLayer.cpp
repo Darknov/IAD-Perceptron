@@ -11,3 +11,8 @@ void NeuralLayer::addNeuron(Neuron& n)
 {
 	neurons.push_back(n);
 }
+
+int NeuralLayer::getSize()
+{
+	return neurons.size();
+}

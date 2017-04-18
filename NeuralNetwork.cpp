@@ -67,3 +67,13 @@ void NeuralNetwork::propagateForward()
 
 	}
 }
+
+void NeuralNetwork::backwardErrorPropagation(std::vector<double> &values)
+{
+	error = 0.0;
+
+	for (int i = 0; i < layers[layers.size() - 1].getSize(); i++)
+	{
+
+	}
+}
