@@ -12,7 +12,7 @@ private:
 	double error;
 
 public:
-	NeuralNetwork();
+	NeuralNetwork(); // wczytywanie z pliku
 	NeuralNetwork(std::vector<int>& howMuchNeuronsInEachLayer);
 
 	void setBias(bool exists);
