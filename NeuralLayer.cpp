@@ -21,3 +21,25 @@ void NeuralLayer::setBiasPermissions(bool can)
 {
 	useBias = can;
 }
+
+Neuron& NeuralLayer::getBias()
+{
+	return bias;
+}
+
+Neuron& NeuralLayer::getNeuron(int index)
+{
+	return neurons[index];
+}
+
+void NeuralLayer::setFunctions(Fptr transferFunction, Fptr derivative)
+{
+	for (Neuron& n : neurons)
+		n.setFunctions(transferFunction, derivative);
+	
+}
+
+int NeuralLayer::getSize()
+{
+	return neurons.size();
+}
