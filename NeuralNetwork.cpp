@@ -61,6 +61,7 @@ NeuralNetwork::NeuralNetwork(std::string filePath)
 		}
 	}
 
+	inputFileStream.close();
 
 }
 
@@ -70,18 +71,21 @@ NeuralNetwork::NeuralNetwork(std::vector<int>& howMuchNeuronsInEachLayer)
 {
 	Neuron n;
 	buildNetwork(howMuchNeuronsInEachLayer, n);
+	learnSpeed = 0.1;
 }
 
 NeuralNetwork::NeuralNetwork(std::vector<int>& howMuchNeuronsInEachLayer, std::vector<double> startingWeights, double learnSpeed)
 {
 	Neuron n(startingWeights, learnSpeed);
 	buildNetwork(howMuchNeuronsInEachLayer, n);
+	this->learnSpeed = learnSpeed;
 }
 
 NeuralNetwork::NeuralNetwork(std::vector<int>& howMuchNeuronsInEachLayer, std::vector<double> startingWeights, double learnSpeed, Fptr transferFunction, Fptr transferFunctionDerivative)
 {
 	Neuron n(startingWeights, learnSpeed, transferFunction, transferFunctionDerivative);
 	buildNetwork(howMuchNeuronsInEachLayer, n);
+	this->learnSpeed = learnSpeed;
 }
 
 void NeuralNetwork::setBias(bool exists)
@@ -161,5 +165,40 @@ void NeuralNetwork::displayNetwork()
 
 		i++;
 	}
+
+}
+
+void NeuralNetwork::saveToFile(std::string filePath)
+{
+	std::ofstream outputFileStream;
+	outputFileStream.open(filePath);
+
+	std::vector<int> topology;
+
+	for (NeuralLayer l : layers)
+		topology.push_back(l.getSize());
+
+	outputFileStream << learnSpeed
+					 << topology.size();
+
+		for (int i = 0; i < topology.size(); i++)
+			outputFileStream << topology[i];
+
+		int numberOfWeights = 1;
+		for (NeuralLayer l : layers)
+		{
+			outputFileStream << numberOfWeights;
+
+			for (int j = 0; j < l.getSize(); j++)
+			{
+				for (int k = 0; k < l.getNeuron(j).getWeights().size(); k++)
+				{
+					outputFileStream << l.getNeuron(j).getWeights()[k];
+				}
+			}
+
+		}
+
+	outputFileStream.close();
 
 }

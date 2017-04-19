@@ -9,6 +9,7 @@ private:
 	std::vector<double> input;
 	std::vector<double> output;
 	double error;
+	double learnSpeed;
 
 public:
 	//NeuralNetwork(); // tu miało być wczytywanie z pliku, ale byłoby to strasznie nieintuicyjne.
@@ -29,6 +30,8 @@ public:
 	double getError();
 
 	void displayNetwork();
+
+	void saveToFile(std::string filePath);
 
 private:
 
