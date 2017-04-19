@@ -1,22 +1,21 @@
-#pragma once
+﻿#pragma once
 #include <vector>
 #include "Neuron.h"
-
-
 
 class NeuralLayer
 {
 private:
 	std::vector<Neuron> neurons;
-	Neuron bias;
-	bool useBias;
+	Neuron bias; // to jest pomocnicze pole. Ale ważne.
 
 public:
+	bool useBias;
 	NeuralLayer(); 
-	NeuralLayer(std::vector<Neuron> neurons); // dla wczytywania z fajla
+	NeuralLayer(std::vector<Neuron> neurons, Neuron bias); // dla wczytywania z fajla. Bias musimy tu podawać, bo tak jest dobrze.
 	void addNeuron(Neuron& n);
-	void setBias(Neuron& bias);
+	void addBias(Neuron& bias);
 	void setBiasPermissions(bool can);
+	void setBias(Neuron bias);
 	int getSize();
 	Neuron& getNeuron(int index);
 	Neuron& getBias();
