@@ -150,11 +150,15 @@ double Neuron::getGradient()
 	return gradient;
 }
 
-void Neuron::updateWeights()
+void Neuron::updateWeights(bool isMomentumRelevant)
 {
 	for (int i = 0; i < W.size(); i++)
 	{
-		double deltaWeight = gradient*X[i] * learnSpeed + momentum*previousDeltaWeights[i];
+		double deltaWeight = gradient*X[i] * learnSpeed;
+		if (isMomentumRelevant)
+		{
+			deltaWeight = deltaWeight + momentum*previousDeltaWeights[i];
+		}
 		W[i] = W[i] + deltaWeight;
 		previousDeltaWeights[i] = deltaWeight;
 	}

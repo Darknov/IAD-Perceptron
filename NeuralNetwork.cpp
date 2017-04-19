@@ -151,34 +151,37 @@ void NeuralNetwork::backwardErrorPropagation(std::vector<double> &values)
 	}
 	error = error / 2;
 
-	// metoda gradientu prostego
-
-	// obliczanie gradientu dla warstwy wyjsciowej
-
-	for (int i = 0; i < lastLayer.getSize(); i++)
+	if (isLearning)
 	{
-		lastLayer.getNeuron(i).calcutaleOutputGradient(values[i]);
-	}
+		// metoda gradientu prostego
 
-	// obliczanie gradientu dla pozosta³ych warstw(bez wejsciowej bo nie przetwarza)
-	for (int i = layers.size() - 2; i > 0; i--)
-	{
-		for (int j = 0; j < layers[i].getSize(); j++)
+		// obliczanie gradientu dla warstwy wyjsciowej
+
+		for (int i = 0; i < lastLayer.getSize(); i++)
 		{
-			layers[i].getNeuron(j).calcutaleHiddenGradient(
-				layers[i + 1].getGradients(),
-				layers[i + 1].getWeightsOnInput(j));
+			lastLayer.getNeuron(i).calcutaleOutputGradient(values[i]);
 		}
-	}
 
-	for (int i = layers.size() - 1; i > 0; i--)
-	{
-		for (int j = 0; j < layers[i].getSize(); i++)
+		// obliczanie gradientu dla pozosta³ych warstw(bez wejsciowej bo nie przetwarza)
+		for (int i = layers.size() - 2; i > 0; i--)
 		{
-			layers[i].getNeuron(j).updateWeights();
+			for (int j = 0; j < layers[i].getSize(); j++)
+			{
+				layers[i].getNeuron(j).calcutaleHiddenGradient(
+					layers[i + 1].getGradients(),
+					layers[i + 1].getWeightsOnInput(j));
+			}
 		}
-	}
 
+		for (int i = layers.size() - 1; i > 0; i--)
+		{
+			for (int j = 0; j < layers[i].getSize(); i++)
+			{
+				layers[i].getNeuron(j).updateWeights(isMomentumRelevant);
+			}
+		}
+
+	}
 
 }
 
@@ -242,4 +245,14 @@ void NeuralNetwork::saveToFile(std::string filePath)
 		}
 
 	outputFileStream.close();
+}
+
+void NeuralNetwork::setLearning(bool shouldNetworkLearn)
+{
+	isLearning = shouldNetworkLearn;
+}
+
+void NeuralNetwork::setIfIsMomentumRelevant(bool isRelevant)
+{
+	isMomentumRelevant = isRelevant;
 }

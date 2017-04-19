@@ -36,7 +36,7 @@ public:
 	void setWeights(std::vector<double> W);
 	std::vector<double> getWeights();
 	void updateWeights(double exp, double res, std::vector<double> X); // tu jest nie ok
-	void updateWeights();
+	void updateWeights(bool isMomentumRelevant);
 	void calcutaleOutputGradient(double value);
 	void calcutaleHiddenGradient(std::vector<double> gradientsInNextLayer, std::vector<double> weightsInNextLayer);
 	double getGradient();
