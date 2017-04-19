@@ -43,3 +43,23 @@ int NeuralLayer::getSize()
 {
 	return neurons.size();
 }
+
+std::vector<double> NeuralLayer::getGradients()
+{
+	std::vector<double> gradients;
+	for (Neuron n : neurons)
+	{
+		gradients.push_back(n.getGradient());
+	}
+	return gradients;
+}
+
+std::vector<double> NeuralLayer::getWeightsOnInput(int index) // zwraca vector wag neuronow z danego numeru wejscia 
+{
+	std::vector<double> weights;
+	for (Neuron n : neurons)
+	{
+		weights.push_back(n.getWeights()[index]);
+	}
+	return weights;
+}

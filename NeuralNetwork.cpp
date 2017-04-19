@@ -152,6 +152,25 @@ void NeuralNetwork::backwardErrorPropagation(std::vector<double> &values)
 	error = error / 2;
 
 	// metoda gradientu prostego
+
+	// obliczanie gradientu dla warstwy wyjsciowej
+
+	for (int i = 0; i < lastLayer.getSize() - 1; i++)
+	{
+		lastLayer.getNeuron(i).calcutaleOutputGradient(values[i]);
+	}
+
+	// obliczanie gradientu dla pozosta³ych warstw(bez wejsciowej bo nie przetwarza)
+	for (int i = layers.size() - 2; i > 0; i--)
+	{
+
+		for (int j = 0; j < layers[i].getSize(); j++)
+		{
+			layers[i].getNeuron(j).calcutaleHiddenGradient(
+				layers[i + 1].getGradients(),
+				layers[i + 1].getWeightsOnInput(j));
+		}
+	}
 }
 
 void NeuralNetwork::displayNetwork()
