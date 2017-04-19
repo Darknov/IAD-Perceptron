@@ -17,6 +17,36 @@ NeuralNetwork::NeuralNetwork()
 
 }
 
+NeuralNetwork::NeuralNetwork(std::vector<int>& howMuchNeuronsInEachLayer)
+{
+	for (int i = 0; i<howMuchNeuronsInEachLayer.size(); i++)
+		for (int j = 0; j < howMuchNeuronsInEachLayer[i]; j++)
+		{
+			Neuron n;
+			layers[i].addNeuron(n);
+		}
+}
+
+NeuralNetwork::NeuralNetwork(std::vector<int>& howMuchNeuronsInEachLayer, std::vector<double> startingWeights, double learnSpeed)
+{
+	for (int i = 0; i<howMuchNeuronsInEachLayer.size(); i++)
+		for (int j = 0; j < howMuchNeuronsInEachLayer[i]; j++)
+		{
+			Neuron n(startingWeights, learnSpeed);
+			layers[i].addNeuron(n);
+		}
+}
+
+NeuralNetwork::NeuralNetwork(std::vector<int>& howMuchNeuronsInEachLayer, std::vector<double> startingWeights, double learnSpeed, Fptr transferFunction, Fptr transferFunctionDerivative)
+{
+	for (int i = 0; i<howMuchNeuronsInEachLayer.size(); i++)
+		for (int j = 0; j < howMuchNeuronsInEachLayer[i]; j++)
+		{
+			Neuron n(startingWeights, learnSpeed, transferFunction, transferFunctionDerivative);
+			layers[i].addNeuron(n);
+		}
+}
+
 void NeuralNetwork::setBias(bool exists)
 {
 	for (NeuralLayer l : layers)

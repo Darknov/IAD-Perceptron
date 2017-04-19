@@ -14,6 +14,8 @@ private:
 public:
 	NeuralNetwork(); // wczytywanie z pliku
 	NeuralNetwork(std::vector<int>& howMuchNeuronsInEachLayer);
+	NeuralNetwork(std::vector<int>& howMuchNeuronsInEachLayer, std::vector<double> startingWeights, double learnSpeed);
+	NeuralNetwork(std::vector<int>& howMuchNeuronsInEachLayer, std::vector<double> startingWeights, double learnSpeed, Fptr transferFunction, Fptr transferFunctionDerivative);
 
 	void setBias(bool exists);
 
