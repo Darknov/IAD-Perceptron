@@ -2,9 +2,11 @@
 
 NeuralLayer::NeuralLayer() {}; // nie jest to najładniejsza opcja, ale nie ma czasu żeby szukać jak to ładnie zrobić.
 
-NeuralLayer::NeuralLayer(std::vector<Neuron> neurons)
+NeuralLayer::NeuralLayer(std::vector<Neuron> neurons, Neuron bias)
 {
 	this->neurons = neurons;
+	useBias = false;
+	this->bias = bias;
 }
 
 void NeuralLayer::addNeuron(Neuron& n)
@@ -12,20 +14,28 @@ void NeuralLayer::addNeuron(Neuron& n)
 	neurons.push_back(n);
 }
 
-void NeuralLayer::setBias(Neuron& bias)
+void NeuralLayer::addBias(Neuron& bias)
 {
-	this->bias = bias;
+	neurons.push_back(bias);
+	useBias = true;
 }
 
 void NeuralLayer::setBiasPermissions(bool can)
 {
+	if (useBias == can) return;
+
+	if (!can) neurons.pop_back();
+	else addBias(bias);
+
 	useBias = can;
+
 }
 
-Neuron& NeuralLayer::getBias()
+void NeuralLayer::setBias(Neuron bias)
 {
-	return bias;
+	this->bias = bias;
 }
+
 
 Neuron& NeuralLayer::getNeuron(int index)
 {

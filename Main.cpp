@@ -116,7 +116,7 @@ int main(int argc)
 	{
 		// w tym miejscu uczymy uposledzone neurony
 
-		// feed net with wzorzecs
+		// feed net with wzorzces
 
 		// propagate forward
 
