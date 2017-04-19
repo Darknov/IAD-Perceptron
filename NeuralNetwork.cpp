@@ -144,7 +144,7 @@ void NeuralNetwork::backwardErrorPropagation(std::vector<double> &values)
 	NeuralLayer &lastLayer = layers[layers.size() - 1];
 	error = 0.0;
 
-	for (int i = 0; i <lastLayer.getSize() - 1; i++) // bez biasu
+	for (int i = 0; i <lastLayer.getSize() -1; i++)
 	{
 		double diff = values[i] - lastLayer.getNeuron(i).getOutput();
 		error = error + diff*diff;
@@ -155,7 +155,7 @@ void NeuralNetwork::backwardErrorPropagation(std::vector<double> &values)
 
 	// obliczanie gradientu dla warstwy wyjsciowej
 
-	for (int i = 0; i < lastLayer.getSize() - 1; i++)
+	for (int i = 0; i < lastLayer.getSize(); i++)
 	{
 		lastLayer.getNeuron(i).calcutaleOutputGradient(values[i]);
 	}
@@ -163,7 +163,6 @@ void NeuralNetwork::backwardErrorPropagation(std::vector<double> &values)
 	// obliczanie gradientu dla pozosta³ych warstw(bez wejsciowej bo nie przetwarza)
 	for (int i = layers.size() - 2; i > 0; i--)
 	{
-
 		for (int j = 0; j < layers[i].getSize(); j++)
 		{
 			layers[i].getNeuron(j).calcutaleHiddenGradient(
@@ -171,6 +170,16 @@ void NeuralNetwork::backwardErrorPropagation(std::vector<double> &values)
 				layers[i + 1].getWeightsOnInput(j));
 		}
 	}
+
+	for (int i = layers.size() - 1; i > 0; i--)
+	{
+		for (int j = 0; j < layers[i].getSize(); i++)
+		{
+			layers[i].getNeuron(j).updateWeights();
+		}
+	}
+
+
 }
 
 void NeuralNetwork::displayNetwork()

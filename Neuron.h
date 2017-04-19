@@ -13,12 +13,15 @@ private:
 
 	std::vector<double> X;
 	std::vector<double> W;
-	
+	std::vector<double> previousDeltaWeights;
+
 	Fptr transferFunction, transferFunctionDerivative;
 	double learnSpeed;
 	double gradient;
 	double output;
 	double sumOfInputs;
+	double momentum;
+	
 
 
 public:
@@ -33,6 +36,7 @@ public:
 	void setWeights(std::vector<double> W);
 	std::vector<double> getWeights();
 	void updateWeights(double exp, double res, std::vector<double> X); // tu jest nie ok
+	void updateWeights();
 	void calcutaleOutputGradient(double value);
 	void calcutaleHiddenGradient(std::vector<double> gradientsInNextLayer, std::vector<double> weightsInNextLayer);
 	double getGradient();
