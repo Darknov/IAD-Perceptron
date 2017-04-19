@@ -8,6 +8,7 @@ private:
 	std::vector<Neuron> neurons;
 	Neuron bias; // to jest pomocnicze pole. Ale ważne.
 
+
 public:
 	bool useBias;
 	NeuralLayer(); 
@@ -22,6 +23,7 @@ public:
 	void setFunctions(Fptr transferFunction, Fptr derivative);
 	std::vector<double> getGradients();
 	std::vector<double> getWeightsOnInput(int index);
+	bool useBias;
 
 };
 

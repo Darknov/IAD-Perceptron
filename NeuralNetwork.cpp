@@ -163,7 +163,14 @@ void NeuralNetwork::backwardErrorPropagation(std::vector<double> &values)
 	NeuralLayer &lastLayer = layers[layers.size() - 1];
 	error = 0.0;
 
-	for (int i = 0; i <lastLayer.getSize() -1; i++)
+	int biasBufor = 0;
+
+	if (lastLayer.useBias)
+	{
+		biasBufor = 1;
+	}
+
+	for (int i = 0; i <lastLayer.getSize() - biasBufor; i++)
 	{
 		double diff = values[i] - lastLayer.getNeuron(i).getOutput();
 		error = error + diff*diff;
