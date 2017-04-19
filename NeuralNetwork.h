@@ -18,8 +18,8 @@ public:
 	//NeuralNetwork(); // tu miało być wczytywanie z pliku, ale byłoby to strasznie nieintuicyjne.
 	NeuralNetwork(std::string filePath);
 	NeuralNetwork(std::vector<int>& howMuchNeuronsInEachLayer);
-	NeuralNetwork(std::vector<int>& howMuchNeuronsInEachLayer, std::vector<double> startingWeights, double learnSpeed);
-	NeuralNetwork(std::vector<int>& howMuchNeuronsInEachLayer, std::vector<double> startingWeights, double learnSpeed, Fptr transferFunction, Fptr transferFunctionDerivative);
+	NeuralNetwork(std::vector<int>& howMuchNeuronsInEachLayer, double learnSpeed);
+	NeuralNetwork(std::vector<int>& howMuchNeuronsInEachLayer, double learnSpeed, Fptr transferFunction, Fptr transferFunctionDerivative);
 
 	void setBias(bool exists);
 
@@ -42,7 +42,8 @@ public:
 
 private:
 
-	void buildNetwork(std::vector<int>& howMuchNeuronsInEachLayer, Neuron sampleNeuron);
+	void buildNetwork(std::vector<int>& howMuchNeuronsInEachLayer);
+	std::vector<double> generateRandomWeights(int howMuchWeightsYouWish);
 
 };
 

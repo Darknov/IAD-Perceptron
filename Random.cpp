@@ -27,3 +27,4 @@ double Random::nextDoubleIncludingTop(double bottom, double topLimit)
 	return bottom + ((double)rand() / RAND_MAX) * (topLimit - bottom);
 }
 
+
