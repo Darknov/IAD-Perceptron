@@ -1,14 +1,35 @@
 #include "NeuralNetwork.h"
 #include "Neuron.h"
+#include "Random.h"
 #include <exception>
 #include <fstream>
 #include <iostream>
 
-void NeuralNetwork::buildNetwork(std::vector<int>& howMuchNeuronsInEachLayer, Neuron sampleNeuron)
+void NeuralNetwork::buildNetwork(std::vector<int>& howMuchNeuronsInEachLayer)
 {
-	for (int i = 0; i<howMuchNeuronsInEachLayer.size(); i++)
+	std::vector<double> randomWeights = { 1 };
+	int howMuchNeuronsInPreviousLayer = 1;
+	for (int i = 0; i < howMuchNeuronsInEachLayer.size(); i++)
+	{
 		for (int j = 0; j < howMuchNeuronsInEachLayer[i]; j++)
+		{
+			randomWeights = generateRandomWeights(howMuchNeuronsInPreviousLayer);
+			Neuron sampleNeuron(randomWeights, learnSpeed);
 			layers[i].addNeuron(sampleNeuron);
+		}
+
+		howMuchNeuronsInPreviousLayer = layers[i].getSize();
+	}
+		
+
+}
+
+std::vector<double> NeuralNetwork::generateRandomWeights(int howMuchWeightsYouWish)
+{
+	Random lotto;
+	std::vector<double> output;
+	for (int i = 0; i < howMuchWeightsYouWish; i++)
+		output.push_back(lotto.nextDoubleIncludingTop(-0.5, 0.5));
 }
 
 NeuralNetwork::NeuralNetwork(std::string filePath)
@@ -74,17 +95,15 @@ NeuralNetwork::NeuralNetwork(std::vector<int>& howMuchNeuronsInEachLayer)
 	learnSpeed = 0.1;
 }
 
-NeuralNetwork::NeuralNetwork(std::vector<int>& howMuchNeuronsInEachLayer, std::vector<double> startingWeights, double learnSpeed)
+NeuralNetwork::NeuralNetwork(std::vector<int>& howMuchNeuronsInEachLayer, double learnSpeed)
 {
-	Neuron n(startingWeights, learnSpeed);
-	buildNetwork(howMuchNeuronsInEachLayer, n);
+	buildNetwork(howMuchNeuronsInEachLayer);
 	this->learnSpeed = learnSpeed;
 }
 
-NeuralNetwork::NeuralNetwork(std::vector<int>& howMuchNeuronsInEachLayer, std::vector<double> startingWeights, double learnSpeed, Fptr transferFunction, Fptr transferFunctionDerivative)
+NeuralNetwork::NeuralNetwork(std::vector<int>& howMuchNeuronsInEachLayer, double learnSpeed, Fptr transferFunction, Fptr transferFunctionDerivative)
 {
-	Neuron n(startingWeights, learnSpeed, transferFunction, transferFunctionDerivative);
-	buildNetwork(howMuchNeuronsInEachLayer, n);
+	buildNetwork(howMuchNeuronsInEachLayer);
 	this->learnSpeed = learnSpeed;
 }
 
