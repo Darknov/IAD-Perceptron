@@ -16,6 +16,9 @@ private:
 	
 	Fptr transferFunction, transferFunctionDerivative;
 	double learnSpeed;
+	double gradient;
+	double output;
+	double sumOfInputs;
 
 
 public:
@@ -30,5 +33,6 @@ public:
 	void setWeights(std::vector<double> W);
 	std::vector<double> getWeights();
 	void updateWeights(double exp, double res, std::vector<double> X); // tu jest nie ok
+	void calcutaleOutputGradient(double value);
 
 };

@@ -75,10 +75,11 @@ void NeuralNetwork::backwardErrorPropagation(std::vector<double> &values)
 
 	for (int i = 0; i <lastLayer.getSize() - 1; i++) // bez biasu
 	{
-		double diff = lastLayer.getNeuron(i).getOutput() - values[i];
+		double diff = values[i] - lastLayer.getNeuron(i).getOutput();
 		error = error + diff*diff;
 	}
 	error = error / 2;
 
+	// metoda gradientu prostego
 
 }

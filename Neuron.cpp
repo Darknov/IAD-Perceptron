@@ -125,3 +125,10 @@ void Neuron::updateWeights(double exp, double res, std::vector<double> X)
 		break;
 	}
 }
+
+void Neuron::calcutaleOutputGradient(double value)
+{
+	// pamietac zeby zmienic funkcje getOutput()
+	// dokonczyc
+	gradient = (output - value)*Neuron::transferFunctionDerivative(sumOfInputs);
+}
