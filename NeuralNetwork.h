@@ -23,7 +23,7 @@ public:
 	void setInput(std::vector<double>& input);
 	void propagateForward();
 
-	void backwardErrorPropagation(); 
+	void backwardErrorPropagation(std::vector<double>& values); 
 
 	std::vector<double> getOutput();
 

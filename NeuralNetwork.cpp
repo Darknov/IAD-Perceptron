@@ -1,4 +1,4 @@
-﻿#include "NeuralNetwork.h"
+#include "NeuralNetwork.h"
 #include "Neuron.h"
 #include <exception>
 #include <fstream>
@@ -139,6 +139,20 @@ void NeuralNetwork::propagateForward()
 	}
 }
 
+void NeuralNetwork::backwardErrorPropagation(std::vector<double> &values)
+{
+	NeuralLayer &lastLayer = layers[layers.size() - 1];
+	error = 0.0;
+
+	for (int i = 0; i <lastLayer.getSize() - 1; i++) // bez biasu
+	{
+		double diff = values[i] - lastLayer.getNeuron(i).getOutput();
+		error = error + diff*diff;
+	}
+	error = error / 2;
+
+	// metoda gradientu prostego
+}
 
 void NeuralNetwork::displayNetwork()
 {
@@ -200,5 +214,4 @@ void NeuralNetwork::saveToFile(std::string filePath)
 		}
 
 	outputFileStream.close();
-
 }
