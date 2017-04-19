@@ -1,50 +1,86 @@
 ﻿#include "NeuralNetwork.h"
 #include "Neuron.h"
 #include <exception>
+#include <fstream>
 
-
-NeuralNetwork::NeuralNetwork()
-{
-	// wczytaj z pliku
-	// * ilość warstw
-	// * ilość neuronów w każdej warstwie
-	// * jakie wagi są przypisane do wyjść każdej z warstw (oprócz ostatniej)
-	//		* możemy to zapisać w pliku tekstowym (będzie łatwo edytowalne)
-	//		* możemy też zapisać do pliku bezpośrednio liczby (będzie łatwiej 
-	//		  dla programu, jeżeli nie musimy ich modyfikować przez notatnik, to super)
-
-	// Nie mogę kontynuować, bo wikampa konserwują >.>
-
-}
-
-NeuralNetwork::NeuralNetwork(std::vector<int>& howMuchNeuronsInEachLayer)
+void NeuralNetwork::buildNetwork(std::vector<int>& howMuchNeuronsInEachLayer, Neuron sampleNeuron)
 {
 	for (int i = 0; i<howMuchNeuronsInEachLayer.size(); i++)
 		for (int j = 0; j < howMuchNeuronsInEachLayer[i]; j++)
+			layers[i].addNeuron(sampleNeuron);
+}
+
+NeuralNetwork::NeuralNetwork(std::string filePath)
+{
+	std::ifstream inputFileStream;
+	inputFileStream.open(filePath);
+
+	int learnSpeed;
+		inputFileStream >> learnSpeed;
+
+	int topologySize;
+		inputFileStream >> topologySize;
+
+	std::vector<int> topology;
+
+	for (int i = 0; i < topologySize; i++)
+	{
+		int buffer;
+		inputFileStream >> buffer;
+		topology.push_back(buffer);
+	}
+
+	std::vector<double> weightsBuffer;
+
+	while (inputFileStream.good())
+	{
+		for (int k = 0; k < topology.size(); k++)
 		{
-			Neuron n;
-			layers[i].addNeuron(n);
+			NeuralLayer layer;
+
+				for (int j = 0; j < topology[k]; j++)
+				{
+					weightsBuffer.clear();
+
+					int numberOfWeights;
+					inputFileStream >> numberOfWeights;
+
+					for (int i = 0; i < numberOfWeights; i++)
+					{
+						double w;
+						inputFileStream >> w;
+						weightsBuffer.push_back(w);
+					}
+
+					Neuron n(weightsBuffer, learnSpeed);
+					layer.addNeuron(n);
+				}
+
+			layers.push_back(layer);
 		}
+	}
+
+
+}
+
+
+
+NeuralNetwork::NeuralNetwork(std::vector<int>& howMuchNeuronsInEachLayer)
+{
+	Neuron n;
+	buildNetwork(howMuchNeuronsInEachLayer, n);
 }
 
 NeuralNetwork::NeuralNetwork(std::vector<int>& howMuchNeuronsInEachLayer, std::vector<double> startingWeights, double learnSpeed)
 {
-	for (int i = 0; i<howMuchNeuronsInEachLayer.size(); i++)
-		for (int j = 0; j < howMuchNeuronsInEachLayer[i]; j++)
-		{
-			Neuron n(startingWeights, learnSpeed);
-			layers[i].addNeuron(n);
-		}
+	Neuron n(startingWeights, learnSpeed);
+	buildNetwork(howMuchNeuronsInEachLayer, n);
 }
 
 NeuralNetwork::NeuralNetwork(std::vector<int>& howMuchNeuronsInEachLayer, std::vector<double> startingWeights, double learnSpeed, Fptr transferFunction, Fptr transferFunctionDerivative)
 {
-	for (int i = 0; i<howMuchNeuronsInEachLayer.size(); i++)
-		for (int j = 0; j < howMuchNeuronsInEachLayer[i]; j++)
-		{
-			Neuron n(startingWeights, learnSpeed, transferFunction, transferFunctionDerivative);
-			layers[i].addNeuron(n);
-		}
+	Neuron n(startingWeights, learnSpeed, transferFunction, transferFunctionDerivative);
+	buildNetwork(howMuchNeuronsInEachLayer, n);
 }
 
 void NeuralNetwork::setBias(bool exists)
