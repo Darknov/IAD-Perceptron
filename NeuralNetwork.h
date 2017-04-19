@@ -10,6 +10,9 @@ private:
 	std::vector<double> output;
 	double error;
 	double learnSpeed;
+	bool isMomentumRelevant;
+	bool isLearning;
+
 
 public:
 	//NeuralNetwork(); // tu miało być wczytywanie z pliku, ale byłoby to strasznie nieintuicyjne.
@@ -23,7 +26,7 @@ public:
 	void setInput(std::vector<double>& input);
 	void propagateForward();
 
-	void backwardErrorPropagation(std::vector<double>& values); 
+	void backwardErrorPropagation(std::vector<double>& values); // wektor z wartosciami docelowymi
 
 	std::vector<double> getOutput();
 
@@ -32,6 +35,10 @@ public:
 	void displayNetwork();
 
 	void saveToFile(std::string filePath);
+
+	void setLearning(bool shouldNetworkLearn);
+
+	void setIfIsMomentumRelevant(bool isRelevant);
 
 private:
 

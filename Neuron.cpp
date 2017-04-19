@@ -58,12 +58,14 @@ double Neuron::getOutput()
 {
 	double z = 0;
 	
-		for (int i = 0; i < W.size(); i++)
-		{
-			z += X[i] * W[i];
-		}
-	
-		return transferFunction(z);
+	for (int i = 0; i < W.size(); i++)
+	{
+		z += X[i] * W[i];
+	}
+
+	sumOfInputs = z;
+	output = transferFunction(z);
+	return output;
 }
 
 void Neuron::setFunctions(Fptr transferFunction, Fptr derivative)
@@ -128,7 +130,37 @@ void Neuron::updateWeights(double exp, double res, std::vector<double> X)
 
 void Neuron::calcutaleOutputGradient(double value)
 {
-	// pamietac zeby zmienic funkcje getOutput()
-	// dokonczyc
 	gradient = (output - value)*Neuron::transferFunctionDerivative(sumOfInputs);
+}
+
+void Neuron::calcutaleHiddenGradient(std::vector<double> gradientsInNextLayer, std::vector<double> weightsInNextLayer)
+{
+	gradient = 0;
+
+	for (int i = 0; i < gradientsInNextLayer.size() - 1; i++)
+	{
+		gradient = gradient + gradientsInNextLayer[i] * weightsInNextLayer[i];
+	}
+
+	gradient = gradient * Neuron::transferFunctionDerivative(sumOfInputs);
+}
+
+double Neuron::getGradient()
+{
+	return gradient;
+}
+
+void Neuron::updateWeights(bool isMomentumRelevant)
+{
+	for (int i = 0; i < W.size(); i++)
+	{
+		double deltaWeight = gradient*X[i] * learnSpeed;
+		if (isMomentumRelevant)
+		{
+			deltaWeight = deltaWeight + momentum*previousDeltaWeights[i];
+		}
+		W[i] = W[i] + deltaWeight;
+		previousDeltaWeights[i] = deltaWeight;
+	}
+	
 }

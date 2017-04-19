@@ -21,6 +21,8 @@ public:
 	Neuron& getNeuron(int index);
 	Neuron& getBias();
 	void setFunctions(Fptr transferFunction, Fptr derivative);
+	std::vector<double> getGradients();
+	std::vector<double> getWeightsOnInput(int index);
 
 };
 
