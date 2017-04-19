@@ -70,10 +70,15 @@ void NeuralNetwork::propagateForward()
 
 void NeuralNetwork::backwardErrorPropagation(std::vector<double> &values)
 {
+	NeuralLayer &lastLayer = layers[layers.size() - 1];
 	error = 0.0;
 
-	for (int i = 0; i < layers[layers.size() - 1].getSize(); i++)
+	for (int i = 0; i <lastLayer.getSize() - 1; i++) // bez biasu
 	{
-
+		double diff = lastLayer.getNeuron(i).getOutput() - values[i];
+		error = error + diff*diff;
 	}
+	error = error / 2;
+
+
 }

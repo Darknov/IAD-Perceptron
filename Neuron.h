@@ -13,8 +13,10 @@ private:
 
 	std::vector<double> X;
 	std::vector<double> W;
+	
 	Fptr transferFunction, transferFunctionDerivative;
 	double learnSpeed;
+
 
 public:
 
