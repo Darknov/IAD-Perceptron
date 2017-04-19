@@ -75,11 +75,13 @@ void wczytajWzorceZPliku(	string pathToWzorceWejsciowe, string pathToWzorceWyjsc
 	inputFileStream.close();
 
 }
+
 int main(int argc)
 {
 	vector<vector<double>> wzorceWejsciowe;
 	vector<vector<double>> wzorceWyjsciowe;
-
+	bool czyLosowaKolejnoscWzorcow = false;
+	bool running = false;
 	//wczytajWzorceZadaniowe(wzorceWejsciowe, wzorceWyjsciowe);
 
 	wczytajWzorceZPliku("wzorceWejsciowe.txt", "wzorceWyjsciowe.txt", wzorceWejsciowe, wzorceWyjsciowe);
@@ -105,6 +107,22 @@ int main(int argc)
 			cout << wzorceWyjsciowe[i][j] << " ";
 		}
 		cout << endl;
+	}
+	// glowna petla nauki
+
+	
+
+	while (running)
+	{
+		// w tym miejscu uczymy uposledzone neurony
+
+		// feed net with wzorzecs
+
+		// propagate forward
+
+		// progragate backward
+
+		// save every 10, 20, 50 iterations
 	}
 	
 	cin.ignore();
