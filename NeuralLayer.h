@@ -9,7 +9,7 @@ class NeuralLayer
 private:
 	std::vector<Neuron> neurons;
 	Neuron bias;
-	bool useBias;
+	
 
 public:
 	NeuralLayer(); 
@@ -23,6 +23,7 @@ public:
 	void setFunctions(Fptr transferFunction, Fptr derivative);
 	std::vector<double> getGradients();
 	std::vector<double> getWeightsOnInput(int index);
+	bool useBias;
 
 };
 
