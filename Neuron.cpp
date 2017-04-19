@@ -53,3 +53,75 @@ std::vector<double> Neuron::getWeights()
 {
 	return W;
 }
+
+double Neuron::getOutput()
+{
+	double z = 0;
+	
+		for (int i = 0; i < W.size(); i++)
+		{
+			z += X[i] * W[i];
+		}
+	
+		return transferFunction(z);
+}
+
+void Neuron::setFunctions(Fptr transferFunction, Fptr derivative)
+{
+	this->transferFunction = transferFunction;
+	this->transferFunctionDerivative = derivative;
+}
+
+void Neuron::updateWeights(double exp, double res, std::vector<double> X)
+{
+	switch (variant)
+	{
+	case 1:
+		if (exp == res)
+		{
+			for (int i = 0; i < W.size(); i++)
+				W[i] += X[i] * learnSpeed;
+		}
+		else
+		{
+			for (int i = 0; i < W.size(); i++)
+				W[i] -= X[i] * learnSpeed;
+		}
+		break;
+	case 2:
+		if (exp == 0 && res == 0)
+		{
+			for (int i = 0; i < W.size(); i++)
+				W[i] -= X[i] * learnSpeed;
+		}
+		if (exp == 0 && res == 1)
+		{
+			for (int i = 0; i < W.size(); i++)
+				W[i] += X[i] * learnSpeed;
+		}
+		if (exp == 1 && res == 1)
+		{
+			for (int i = 0; i < W.size(); i++)
+				W[i] -= X[i] * learnSpeed;
+		}
+		if (exp == 1 && res == 0)
+		{
+			for (int i = 0; i < W.size(); i++)
+				W[i] -= X[i] * learnSpeed;
+		}
+		break;
+	case 3:
+
+		if (exp == 0 && res == 1)
+		{
+			for (int i = 0; i < W.size(); i++)
+				W[i] -= X[i] * learnSpeed;
+		}
+		else if (exp == 1 && res == 0)
+		{
+			for (int i = 0; i < W.size(); i++)
+				W[i] += X[i] * learnSpeed;
+		}
+		break;
+	}
+}

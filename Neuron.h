@@ -22,8 +22,9 @@ public:
 
 	Neuron();
 	Neuron(std::vector<double> W, double learnSpeed);
+	Neuron(std::vector<double> W, double learnSpeed, Fptr transferFunction, Fptr transferFunctionDerivative);
 	void setFunctions(Fptr transferFunction, Fptr derivative); // just assign appropriate functions here. By default It'll be sigmoidal function.
-	double getOutput();
+	double getOutput(); // if i remember, this function should do everythning what's needed to calculate output and returns it.
 	void setInput(std::vector<double> X);
 	void setInput(double x);
 	void setWeights(std::vector<double> W);
