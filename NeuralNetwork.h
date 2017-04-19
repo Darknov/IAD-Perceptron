@@ -2,7 +2,6 @@
 #include <vector>
 #include "NeuralLayer.h"
 
-
 class NeuralNetwork
 {
 private:
@@ -10,10 +9,14 @@ private:
 	std::vector<double> input;
 	std::vector<double> output;
 	double error;
+	double learnSpeed;
 
 public:
-	NeuralNetwork(); // wczytywanie z pliku
+	//NeuralNetwork(); // tu miało być wczytywanie z pliku, ale byłoby to strasznie nieintuicyjne.
+	NeuralNetwork(std::string filePath);
 	NeuralNetwork(std::vector<int>& howMuchNeuronsInEachLayer);
+	NeuralNetwork(std::vector<int>& howMuchNeuronsInEachLayer, std::vector<double> startingWeights, double learnSpeed);
+	NeuralNetwork(std::vector<int>& howMuchNeuronsInEachLayer, std::vector<double> startingWeights, double learnSpeed, Fptr transferFunction, Fptr transferFunctionDerivative);
 
 	void setBias(bool exists);
 
@@ -25,6 +28,14 @@ public:
 	std::vector<double> getOutput();
 
 	double getError();
+
+	void displayNetwork();
+
+	void saveToFile(std::string filePath);
+
+private:
+
+	void buildNetwork(std::vector<int>& howMuchNeuronsInEachLayer, Neuron sampleNeuron);
 
 };
 

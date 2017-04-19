@@ -1,20 +1,91 @@
-﻿#include "NeuralNetwork.h"
+#include "NeuralNetwork.h"
 #include "Neuron.h"
 #include <exception>
+#include <fstream>
+#include <iostream>
 
-
-NeuralNetwork::NeuralNetwork()
+void NeuralNetwork::buildNetwork(std::vector<int>& howMuchNeuronsInEachLayer, Neuron sampleNeuron)
 {
-	// wczytaj z pliku
-	// * ilość warstw
-	// * ilość neuronów w każdej warstwie
-	// * jakie wagi są przypisane do wyjść każdej z warstw (oprócz ostatniej)
-	//		* możemy to zapisać w pliku tekstowym (będzie łatwo edytowalne)
-	//		* możemy też zapisać do pliku bezpośrednio liczby (będzie łatwiej 
-	//		  dla programu, jeżeli nie musimy ich modyfikować przez notatnik, to super)
+	for (int i = 0; i<howMuchNeuronsInEachLayer.size(); i++)
+		for (int j = 0; j < howMuchNeuronsInEachLayer[i]; j++)
+			layers[i].addNeuron(sampleNeuron);
+}
 
-	// Nie mogę kontynuować, bo wikampa konserwują >.>
+NeuralNetwork::NeuralNetwork(std::string filePath)
+{
+	std::ifstream inputFileStream;
+	inputFileStream.open(filePath);
 
+	int learnSpeed;
+		inputFileStream >> learnSpeed;
+
+	int topologySize;
+		inputFileStream >> topologySize;
+
+	std::vector<int> topology;
+
+	for (int i = 0; i < topologySize; i++)
+	{
+		int buffer;
+		inputFileStream >> buffer;
+		topology.push_back(buffer);
+	}
+
+	std::vector<double> weightsBuffer;
+
+	while (inputFileStream.good())
+	{
+		for (int k = 0; k < topology.size(); k++)
+		{
+			NeuralLayer layer;
+
+				for (int j = 0; j < topology[k]; j++)
+				{
+					weightsBuffer.clear();
+
+					int numberOfWeights;
+					inputFileStream >> numberOfWeights;
+
+					for (int i = 0; i < numberOfWeights; i++)
+					{
+						double w;
+						inputFileStream >> w;
+						weightsBuffer.push_back(w);
+					}
+
+					Neuron n(weightsBuffer, learnSpeed);
+					layer.addNeuron(n);
+				}
+
+			layers.push_back(layer);
+		}
+	}
+
+	inputFileStream.close();
+
+}
+
+
+
+NeuralNetwork::NeuralNetwork(std::vector<int>& howMuchNeuronsInEachLayer)
+{
+	Neuron n;
+	buildNetwork(howMuchNeuronsInEachLayer, n);
+	learnSpeed = 0.1;
+}
+
+NeuralNetwork::NeuralNetwork(std::vector<int>& howMuchNeuronsInEachLayer, std::vector<double> startingWeights, double learnSpeed)
+{
+	Neuron n(startingWeights, learnSpeed);
+	buildNetwork(howMuchNeuronsInEachLayer, n);
+	this->learnSpeed = learnSpeed;
+}
+
+NeuralNetwork::NeuralNetwork(std::vector<int>& howMuchNeuronsInEachLayer, std::vector<double> startingWeights, double learnSpeed, Fptr transferFunction, Fptr transferFunctionDerivative)
+{
+	Neuron n(startingWeights, learnSpeed, transferFunction, transferFunctionDerivative);
+	buildNetwork(howMuchNeuronsInEachLayer, n);
+	this->learnSpeed = learnSpeed;
 }
 
 void NeuralNetwork::setBias(bool exists)
@@ -81,5 +152,66 @@ void NeuralNetwork::backwardErrorPropagation(std::vector<double> &values)
 	error = error / 2;
 
 	// metoda gradientu prostego
+}
 
+void NeuralNetwork::displayNetwork()
+{
+	int i = 0;
+
+	for (NeuralLayer l : layers)
+	{
+		std::cout << "Warstwa nr " << i << ": " << std::endl;
+		std::cout << "Liczba neuronow: " << l.getSize() << std::endl;
+		std::cout << "Wagi: " << std::endl;
+		std::vector<double> W;
+
+		for (int j = 0; j < l.getSize(); j++)
+		{
+			W.clear();
+			W = l.getNeuron(i).getWeights();
+
+			for (int k = 0; k < W.size(); k++)
+			{
+				std::cout << " " << W[i] << " " << std::endl;
+			}
+
+		}
+
+		i++;
+	}
+
+}
+
+void NeuralNetwork::saveToFile(std::string filePath)
+{
+	std::ofstream outputFileStream;
+	outputFileStream.open(filePath);
+
+	std::vector<int> topology;
+
+	for (NeuralLayer l : layers)
+		topology.push_back(l.getSize());
+
+	outputFileStream << learnSpeed
+					 << topology.size();
+
+		for (int i = 0; i < topology.size(); i++)
+			outputFileStream << topology[i];
+
+		int numberOfWeights = 1;
+		for (NeuralLayer l : layers)
+		{
+			outputFileStream << numberOfWeights;
+
+			for (int j = 0; j < l.getSize(); j++)
+			{
+				for (int k = 0; k < l.getNeuron(j).getWeights().size(); k++)
+				{
+					outputFileStream << l.getNeuron(j).getWeights()[k];
+				}
+			}
+
+		}
+
+	outputFileStream.close();
 }
