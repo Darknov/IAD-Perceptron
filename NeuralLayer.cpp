@@ -11,3 +11,13 @@ void NeuralLayer::addNeuron(Neuron& n)
 {
 	neurons.push_back(n);
 }
+
+void NeuralLayer::setBias(Neuron& bias)
+{
+	this->bias = bias;
+}
+
+void NeuralLayer::setBiasPermissions(bool can)
+{
+	useBias = can;
+}
