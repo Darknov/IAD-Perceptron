@@ -26,7 +26,7 @@ public:
 	void setInput(std::vector<double>& input);
 	void propagateForward();
 
-	void backwardErrorPropagation(std::vector<double>& values); 
+	void backwardErrorPropagation(std::vector<double>& values); // wektor z wartosciami docelowymi
 
 	std::vector<double> getOutput();
 
