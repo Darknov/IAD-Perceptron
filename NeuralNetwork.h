@@ -28,6 +28,8 @@ public:
 
 	double getError();
 
+	void displayNetwork();
+
 private:
 
 	void buildNetwork(std::vector<int>& howMuchNeuronsInEachLayer, Neuron sampleNeuron);

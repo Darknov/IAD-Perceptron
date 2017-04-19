@@ -2,6 +2,7 @@
 #include "Neuron.h"
 #include <exception>
 #include <fstream>
+#include <iostream>
 
 void NeuralNetwork::buildNetwork(std::vector<int>& howMuchNeuronsInEachLayer, Neuron sampleNeuron)
 {
@@ -132,4 +133,33 @@ void NeuralNetwork::propagateForward()
 		}
 
 	}
+}
+
+
+void NeuralNetwork::displayNetwork()
+{
+	int i = 0;
+
+	for (NeuralLayer l : layers)
+	{
+		std::cout << "Warstwa nr " << i << ": " << std::endl;
+		std::cout << "Liczba neuronow: " << l.getSize() << std::endl;
+		std::cout << "Wagi: " << std::endl;
+		std::vector<double> W;
+
+		for (int j = 0; j < l.getSize(); j++)
+		{
+			W.clear();
+			W = l.getNeuron(i).getWeights();
+
+			for (int k = 0; k < W.size(); k++)
+			{
+				std::cout << " " << W[i] << " " << std::endl;
+			}
+
+		}
+
+		i++;
+	}
+
 }
